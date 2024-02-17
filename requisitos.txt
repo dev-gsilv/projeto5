@@ -1,0 +1,17 @@
+Código	Descrição
+RNF01	Este projeto deve ser desenvolvido no formato de uma API RESTful.
+
+RNF02	Este projeto deve ser desenvolvido na linguagem Javascript, com o uso da 
+biblioteca Express.
+
+RNF03	É necessário a utilização de Banco de dados, podendo ser relacional 
+(EX: MySQL) ou não relacional (Ex: MongoDB).
+
+RNF04	Toda e qualquer forma de autenticação deve ser feita atraves de JWT's 
+(JSON Web Tokens).
+
+RNF05	Estruturação da API RESTful (EX: controllers, routes, database, dao, config, 
+server, .env)
+
+Código	Descrição
+RF01	
