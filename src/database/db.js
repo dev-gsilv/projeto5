@@ -9,10 +9,11 @@ export const db = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
 });
 
 db.authenticate()
-    .then(console.log(`Database connected: ${DB_NAME}`))
-    .catch(err => {
-        console.log(`Error trying to connect to: ${DB_NAME}`, err);
+    .then(() => {
+        console.log(`Database connected: ${DB_NAME}`);
+        db.sync();
+    })
+    .catch((err) => {
+        console.log(`Error trying to connect to DB: ${DB_NAME}.\n >`,err.message);
     });
-// db.sync();
-
 
