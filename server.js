@@ -1,14 +1,13 @@
 import express from 'express';
-import { dbConn } from './src/database/mysql.js';
-import { router } from './src/routes/router.js';
+import 'dotenv/config';
+import { routes } from './src/routes/routes.js';
 
 const app = express();
 app.use(express.json());
 
-dbConn();
-router(app);
+app.use(routes);
 
-const PORT = process.env.PORT || 3333;
+const PORT = process.env.API_DEV_PORT || 3333;
 app.listen(PORT, () =>
     console.log(`Servidor up! Teste aqui http://localhost:${PORT}/healthcheck`),
 );
