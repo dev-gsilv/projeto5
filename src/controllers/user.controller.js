@@ -1,5 +1,5 @@
 import db from '../models/index.js';
-const User = db.user;
+const User = db.users;
 
 export const findAll = (req, res) => {
     User.findAll()

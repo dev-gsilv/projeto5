@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(router);
 
 db.sequelize
-    .sync({ force: true })
+    .sync({ alter: false })
     .then(() => {
         console.log('Synced db.');
     })

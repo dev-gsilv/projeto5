@@ -8,3 +8,12 @@
 ::ffff:127.0.0.1 - POST /users HTTP/1.1 500 1559 - 2.451 ms
 ::ffff:127.0.0.1 - POST /users HTTP/1.1 500 1559 - 2.423 ms
 ::ffff:127.0.0.1 - POST /users HTTP/1.1 500 1559 - 2.487 ms
+::ffff:127.0.0.1 - POST /users HTTP/1.1 200 129 - 33.356 ms
+::ffff:127.0.0.1 - GET /users HTTP/1.1 200 131 - 9.039 ms
+::ffff:127.0.0.1 - GET /users/1 HTTP/1.1 200 129 - 4.099 ms
+::ffff:127.0.0.1 - POST /users HTTP/1.1 200 129 - 27.518 ms
+::ffff:127.0.0.1 - POST /users HTTP/1.1 200 129 - 16.865 ms
+::ffff:127.0.0.1 - PUT /users/2 HTTP/1.1 200 3 - 19.860 ms
+::ffff:127.0.0.1 - DELETE /users/3 HTTP/1.1 200 1 - 18.145 ms
+::ffff:127.0.0.1 - GET /users HTTP/1.1 200 268 - 1.644 ms
+::ffff:127.0.0.1 - POST /tasks HTTP/1.1 404 145 - 1.146 ms
