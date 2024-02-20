@@ -26,8 +26,7 @@ db.tasks = Task(sequelize, Sequelize);
 
 db.users.hasMany(db.tasks, { as: "tasks" });
 db.tasks.belongsTo(db.users, {
-  foreignKey: "userId",
-  as: "user",
+  foreignKey: "userId"
 });
 
 export default db;

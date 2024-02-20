@@ -18,5 +18,5 @@ db.sequelize
 
 const PORT = process.env.API_DEV_PORT || 3333;
 app.listen(PORT, () =>
-    console.log(`Servidor up! http://localhost:${PORT}/healthcheck`),
+    console.log(`Server running! http://localhost:${PORT}/healthcheck`),
 );

@@ -1,5 +1,3 @@
-// import { DataTypes, Sequelize } from 'sequelize';
-
 export default (sequelize, DataTypes) => {
     const Task = sequelize.define(
         'task',
