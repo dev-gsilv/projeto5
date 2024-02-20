@@ -2,7 +2,7 @@ import express from 'express';
 import { loggerMorgan } from '../utils/logger.morgan.js';
 import * as user from '../controllers/user.controller.js';
 import * as task from '../controllers/task.controller.js';
-import * as auth from '../controllers/authentication.controller.js'
+import * as auth from '../controllers/auth.controller.js';
 
 export const router = express.Router();
 
@@ -13,38 +13,30 @@ router.get('/healthcheck', (req, res) => {
 });
 
 router.post('/login', auth.login);
-//router.post('/logout', logout);
+router.post('/logout', auth.authorization, auth.logout);
 
 // User router
 router
     .route('/users')
-    .all((req, res, next) => {
-        next();
-    })
-    .get(user.findAll)
+    .all()
+    .get(auth.authorization, user.findAll)
     .post(user.create);
 router
     .route('/users/:id')
-    .all((req, res, next) => {
-        next();
-    })
+    .all(auth.authorization)
     .get(user.findById)
     .put(user.update)
     .delete(user.remove);
 
 // task router
-router.get('/tasks/all', task.findAll);
+router.get('/tasks/all', auth.authorization, task.findAll);
 router
     .route('/tasks')
-    .all((req, res, next) => {
-        next();
-    })
+    .all(auth.authorization)
     .post(task.create);
 router
     .route('/tasks/:id')
-    .all((req, res, next) => {
-        next();
-    })
+    .all(auth.authorization)
     .get(task.findById)
     .put(task.update)
     .delete(task.remove);
