@@ -23,7 +23,9 @@ export const findById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message|| 'Error retrieving user with id=' + id,
+                message:
+                    err.message ||
+                    'Some error occurred while retrieving user with id=' + id,
             });
         });
 };

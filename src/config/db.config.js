@@ -1,8 +1,10 @@
+const { DB_NAME, DB_USER, DB_HOST, DB_PASS } = process.env;
+
 const dbConfig = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "@xM&Hr#4g8FU4cVp",
-    DB: "tugasapiDB",
+    HOST: DB_HOST,
+    USER: DB_USER,
+    PASSWORD: DB_PASS,
+    DB: DB_NAME,
     dialect: "mysql",
     pool: {
       max: 5,
