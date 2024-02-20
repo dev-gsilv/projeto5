@@ -1,1 +1,10 @@
-::ffff:127.0.0.1 - POST /users HTTP/1.1 404 145 - 1.701 ms
+::ffff:127.0.0.1 - GET /users HTTP/1.1 500 1547 - 3.391 ms
+::ffff:127.0.0.1 - GET /users HTTP/1.1 500 1580 - 3.219 ms
+::ffff:127.0.0.1 - GET /users HTTP/1.1 500 1580 - 3.166 ms
+::ffff:127.0.0.1 - GET /users HTTP/1.1 500 1580 - 3.356 ms
+::ffff:127.0.0.1 - GET /users/1 HTTP/1.1 500 1565 - 3.607 ms
+::ffff:127.0.0.1 - GET /users HTTP/1.1 500 1580 - 1.034 ms
+::ffff:127.0.0.1 - POST /users HTTP/1.1 500 1559 - 0.389 ms
+::ffff:127.0.0.1 - POST /users HTTP/1.1 500 1559 - 2.451 ms
+::ffff:127.0.0.1 - POST /users HTTP/1.1 500 1559 - 2.423 ms
+::ffff:127.0.0.1 - POST /users HTTP/1.1 500 1559 - 2.487 ms

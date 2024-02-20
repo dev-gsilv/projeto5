@@ -1,40 +1,55 @@
-import { User } from '../models/user.model.js';
+import db from '../models/index.js';
+const User = db.user;
 
-export async function findAll(req, res) {
-    User.findAll().then(result => {
-        res.json(result);
-    });
-}
+export const findAll = (req, res) => {
+    User.findAll()
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message ||
+                    'Some error occurred while retrieving users.',
+            });
+        });
+};
 
-export async function findById(req, res) {
+export const findById = (req, res) => {
     const id = req.params.id;
-    User.findByPk(id).then(result => {
-        res.json(result);
-    });
-}
+    User.findByPk(id)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: 'Error retrieving Tutorial with id=' + id,
+            });
+        });
+};
 
-export async function create(req, res) {
+export const create = (req, res) => {
     const data = req.body;
-    User.create(data).then(result => {
-        res.json(result);
+    return User.create(data).then(data => {
+        res.json(data);
     });
 }
 
-export async function update(req, res) {
+export const update = (req, res) => {
     const data = req.body;
     const id = req.params.id;
 
     User.update(data, {
         where: { id: id },
-    }).then(result => {
-        res.json(result);
+    }).then(data => {
+        res.json(data);
     });
 }
 
-export async function remove(req, res) {
+export const remove = (req, res) => {
     const id = req.params.id;
 
-    User.destroy({ where: { id: id } }).then(result => {
-        res.json(result);
+    User.destroy({ where: { id: id } }).then(data => {
+        res.json(data);
     });
 }
