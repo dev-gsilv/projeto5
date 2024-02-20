@@ -33,8 +33,9 @@ export const login = async (req, res, next) => {
             // Valida se a senha do user está correta
             if (user.hashedPassword == hashedPassword) {
                 const secretJwt = process.env.JWT_SECRET;
-                const token = jwt.sign({ userId: user._id }, secretJwt, {
+                const token = jwt.sign({ userId: user.id }, secretJwt, {
                     expiresIn: '1h',
+                    // algorithm: 'RS256' -> requer par de chaves publica/privada
                 });
                 return res.send({ token });
             }
@@ -54,19 +55,24 @@ export const logout = (req, res, next) => {
         req.user = undefined;
         return res.json({ message: 'User logged out.' });
     }
-    return res.status(204).json({ message: 'No user logged.' });
+    return res.status(404).json({ message: 'No user logged.' });
 };
 
 export const authorization = (req, res, next) => {
-    const token = req.headers.authorization_token;
+    const tokenBearer = req.headers['authorization'] || 'null';
+    const token = tokenBearer.split(' ')[1];
+    // console.log(tokenBearer);
 
     if (!token) {
-        return res.status(401).json({ error: 'Login to access this resource.' });
+        return res
+            .status(401)
+            .json({ error: 'Login to access this resource.' });
     }
 
     try {
         const decodedTokenData = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decodedTokenData;
+        // console.log(decodedTokenData);
         next();
     } catch (err) {
         return res.status(401).json({ err: 'Invalid session token.' });

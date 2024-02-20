@@ -1,3 +1,5 @@
+export const taskStatus = ['pending', 'in_progress', 'completed'];
+
 export default (sequelize, DataTypes) => {
     const Task = sequelize.define(
         'task',
@@ -17,7 +19,7 @@ export default (sequelize, DataTypes) => {
                 allowNull: true,
             },
             status: {
-                type: DataTypes.ENUM('pending', 'in_progress', 'completed'),
+                type: DataTypes.ENUM(taskStatus),
                 defaultValue: 'pending',
             },
             dueDate: {

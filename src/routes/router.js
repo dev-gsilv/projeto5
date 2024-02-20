@@ -18,22 +18,18 @@ router.post('/logout', auth.authorization, auth.logout);
 // User router
 router
     .route('/users')
-    .all()
-    .get(auth.authorization, user.findAll)
-    .post(user.create);
-router
-    .route('/users/:id')
     .all(auth.authorization)
     .get(user.findById)
     .put(user.update)
-    .delete(user.remove);
+    .delete(user.remove)
+    // .get(user.findAll) >>> Rota desativada, devido à lógica de negócio
+router
+    .route('/register')
+    .post(user.create)
 
 // task router
 router.get('/tasks/all', auth.authorization, task.findAll);
-router
-    .route('/tasks')
-    .all(auth.authorization)
-    .post(task.create);
+router.route('/tasks').all(auth.authorization).post(task.create);
 router
     .route('/tasks/:id')
     .all(auth.authorization)
