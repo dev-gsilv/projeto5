@@ -2,6 +2,7 @@ import express from 'express';
 import { loggerMorgan } from '../utils/logger.morgan.js';
 import * as user from '../controllers/user.controller.js';
 import * as task from '../controllers/task.controller.js';
+import * as auth from '../controllers/authentication.controller.js'
 
 export const router = express.Router();
 
@@ -11,7 +12,7 @@ router.get('/healthcheck', (req, res) => {
     res.json({ message: 'Health check: server online!' });
 });
 
-//router.post('/login', login);
+router.post('/login', auth.login);
 //router.post('/logout', logout);
 
 // User router

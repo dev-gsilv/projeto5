@@ -17,6 +17,14 @@ export default (sequelize, DataTypes) => {
                 allowNull: false,
                 unique: true,
             },
+            salt: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            hashedPassword: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
         },
         {
             tableName: 'tb_users',

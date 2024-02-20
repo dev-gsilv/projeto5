@@ -1,8 +1,9 @@
+import { passwordHash } from '../utils/hashGenerator.js';
 import db from '../models/index.js';
 const User = db.users;
 
-export const findAll = (req, res) => {
-    User.findAll()
+export const findAll = async (req, res) => {
+    await User.findAll()
         .then(data => {
             res.json(data);
         })
@@ -15,9 +16,9 @@ export const findAll = (req, res) => {
         });
 };
 
-export const findById = (req, res) => {
+export const findById = async (req, res) => {
     const id = req.params.id;
-    User.findByPk(id)
+    await User.findByPk(id)
         .then(data => {
             res.json(data);
         })
@@ -30,9 +31,12 @@ export const findById = (req, res) => {
         });
 };
 
-export const create = (req, res) => {
-    const data = req.body;
-    return User.create(data)
+export const create = async (req, res) => {
+    const { name, email, password } = req.body;
+    const { salt, hashedPassword } = passwordHash(password);
+    const data = { name, email, salt, hashedPassword };
+
+    await User.create(data)
         .then(data => {
             res.status(201).json(data);
         })
@@ -44,11 +48,11 @@ export const create = (req, res) => {
         });
 };
 
-export const update = (req, res) => {
+export const update = async (req, res) => {
     const data = req.body;
     const id = req.params.id;
 
-    User.update(data, {
+    await User.update(data, {
         where: { id: id },
     })
         .then(data => {
@@ -62,10 +66,10 @@ export const update = (req, res) => {
         });
 };
 
-export const remove = (req, res) => {
+export const remove = async (req, res) => {
     const id = req.params.id;
 
-    User.destroy({ where: { id: id } })
+    await User.destroy({ where: { id: id } })
         .then(data => {
             res.status(204).json(data);
         })
