@@ -14,4 +14,28 @@ RNF05	Estruturação da API RESTful (EX: controllers, routes, database, dao, con
 server, .env)
 
 Código	Descrição
-RF01	
+RF01	Será utilizado o banco de dados mySQL.
+RF02	Será utilizado o ORM Sequelize.
+RF03	Será utilizado o logger Morgan para todas as rotas.
+RF04	O objetivo da API será registrar tarefas de usuários.
+RF05	Um usuário poderá ter muitas tarefas, e uma tarefa será de apenas um usuário.
+RF06	Haverão apenas dois tipos de usuários: 'user' ou 'admin'.
+RF07	Usuários registrados na API serão exclusivamente do tipo 'user'. Usuários do tipo 'admin' serão registrados exclusivamente via query SQL diretamente no SGBD.
+RF08	O cadastro de usuários será realizado informando name, email e password.
+RF09	A senha informada pelo usuário deverá ser criptografada com a biblioteca bcrypt, para posterior armazenamento em banco de dados.
+RF10	'Users' terão os seguintes atributos: id, name, email, salt, hashedPassword e role. Sua chave primária será o id.
+RF11	Id, salt e hashedPassword serão gerados automaticamente.
+RF12	Tarefas terão os seguintes atributos: id, title, description, status, dueDate. Sua chave primária será o id. Os status permitidos serão: 'pending,' 'in_progress' or 'completed'.
+RF13	O atributo title será obrigatório ao cadastrar uma tarefa. Id será gerado automaticamente.
+RF14	Quando um usuário for removido do banco de dados, todas as tarefas relacionadas a ele também deverão ser removidas.
+RF15	Deverá ser implementada uma rota 'healthcheck'.
+RF16	As rotas '/login' e '/register' poderão ser acessadas sem autenticação.
+RF17	As rotas '/logout', '/users' '/users/all', '/tasks', '/tasks/:id', '/tasks/all' deverão exigir autenticação para acesso.
+RF18	O login de usuários será por credenciais de acesso (email, password) via Basic Auth.
+RF19	A autorização de acesso para rotas restritas será realizada por meio de Bearer Token JWT.
+RF20	Cada token gerado deverá conter em seu payload o user ID e o user role, além de ter tempo de expiração de 1 hora.
+RF21	Usuários do tipo 'user' poderão listar, editar e remover somente tarefas relacionadas ao seu user ID, além de seus próprios dados de usuário.
+RF22	Usuários do tipo 'admin' poderão listar todos os usuários e todas as tarefas.
+RF23	Deverá ser implementado error handling nos casos onde houver a possibilidade de um recurso não ser encontrado.
+RF24	Ao listar os dados de usuário, deverão ser retornados apenas: 'id', 'name', 'email'.
+RF25	Ao editar os dados de usuário, apenas os seguintes atributos poderão ser alterados: 'name', 'email', 'password'.

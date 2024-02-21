@@ -24,9 +24,10 @@ db.users = User(sequelize, Sequelize);
 import Task from './task.model.js';
 db.tasks = Task(sequelize, Sequelize);
 
-db.users.hasMany(db.tasks, { as: "tasks" });
+db.users.hasMany(db.tasks, { as: 'tasks' });
 db.tasks.belongsTo(db.users, {
-  foreignKey: "userId"
+    foreignKey: 'userId',
+    onDelete: 'CASCADE',
 });
 
 export default db;

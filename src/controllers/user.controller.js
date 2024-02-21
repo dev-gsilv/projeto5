@@ -7,7 +7,9 @@ export const create = async (req, res) => {
     const { salt, hashedPassword } = passwordHash(password);
     const data = { name, email, salt, hashedPassword };
 
-    await User.create(data)
+    await User.create(data, {
+        fields: ['name', 'email', 'salt', 'hashedPassword'],
+    })
         .then(data => {
             res.status(201).json({ message: 'User created!', id: data.id });
         })
@@ -21,23 +23,27 @@ export const create = async (req, res) => {
 
 export const findAll = async (req, res) => {
     const userId = req.user.userId;
+    const role = req.user.userRole;
 
-    await User.findAll({
-        where: {
-            id: userId,
-        },
-        attributes: ['id', 'name', 'email'],
-    })
-        .then(data => {
-            res.json(data);
+    if (role == 'admin') {
+        await User.findAll({
+            attributes: ['id', 'name', 'email'],
         })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message ||
-                    'Some error occurred while retrieving users.',
+            .then(data => {
+                res.json(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message:
+                        err.message ||
+                        'Some error occurred while retrieving users.',
+                });
             });
+    } else {
+        res.status(401).send({
+            message: "Ops! You don't have rights to access this resouce.",
         });
+    }
 };
 
 export const findById = async (req, res) => {
@@ -71,12 +77,11 @@ export const update = async (req, res) => {
     if (data.password) {
         const { salt, hashedPassword } = passwordHash(data.password);
         data.salt = salt;
-        data.hashedPassword = hashedPassword
+        data.hashedPassword = hashedPassword;
     }
 
     await User.update(data, {
         where: { id: userId },
-        // TODO: testar update com atributos restringidos
         fields: ['name', 'email', 'salt', 'hashedPassword'],
     })
         .then(dbData => {

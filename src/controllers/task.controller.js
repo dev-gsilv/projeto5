@@ -11,9 +11,14 @@ export const create = async (req, res) => {
         if (!taskStatus.includes(data.status)) {
             return res.status(400).json({
                 message:
-                    'Task status must be: pending, in_progress or completed.',
+                    'Tasks status must be: pending, in_progress or completed.',
             });
         }
+    }
+    if (!data.title) {
+        return res.status(400).json({
+            message: 'Tasks must have a title.',
+        });
     }
 
     await Task.create({ ...data, userId: userId })
@@ -30,18 +35,25 @@ export const create = async (req, res) => {
 
 export const findAll = async (req, res) => {
     const userId = req.user.userId;
+    const role = req.user.userRole;
 
-    await Task.findAll({ where: { userId: userId } })
-        .then(data => {
-            res.json(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message ||
-                    'Some error occurred while retrieving tasks.',
+    if (role == 'admin') {
+        await Task.findAll()
+            .then(data => {
+                res.json(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message:
+                        err.message ||
+                        'Some error occurred while retrieving tasks.',
+                });
             });
+    } else {
+        res.status(401).send({
+            message: "Ops! You don't have rights to access this resouce.",
         });
+    }
 };
 
 export const findById = async (req, res) => {
@@ -53,11 +65,6 @@ export const findById = async (req, res) => {
         where: {
             id: taskId,
             userId: userId,
-        },
-        // EagerLoading carregando apenas o nome do user.
-        include: {
-            model: User,
-            attributes: ['name'],
         },
     })
         .then(data => {

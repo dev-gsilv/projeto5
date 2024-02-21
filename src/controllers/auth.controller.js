@@ -33,7 +33,7 @@ export const login = async (req, res, next) => {
             // Valida se a senha do user está correta
             if (user.hashedPassword == hashedPassword) {
                 const secretJwt = process.env.JWT_SECRET;
-                const token = jwt.sign({ userId: user.id }, secretJwt, {
+                const token = jwt.sign({ userId: user.id, userRole: user.role }, secretJwt, {
                     expiresIn: '1h',
                     // algorithm: 'RS256' -> requer par de chaves publica/privada
                 });
