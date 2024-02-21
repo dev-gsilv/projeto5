@@ -7,6 +7,16 @@ export const create = async (req, res) => {
     const { salt, hashedPassword } = passwordHash(password);
     const data = { name, email, salt, hashedPassword };
 
+    // Email unique index validation
+    const emailValidation = await User.findOne({ where: { email: email } });
+    if (emailValidation) {
+        return res.status(400).json({ message: 'E-mail already registered!' });
+    }
+    // Password length validation
+    if (password.length < 8) {
+        return res.status(400).json({ message: 'Password must have at least 8 characters' });
+    }
+
     await User.create(data, {
         fields: ['name', 'email', 'salt', 'hashedPassword'],
     })
@@ -40,7 +50,7 @@ export const findAll = async (req, res) => {
                 });
             });
     } else {
-        res.status(401).send({
+        res.status(403).send({
             message: "Ops! You don't have rights to access this resouce.",
         });
     }

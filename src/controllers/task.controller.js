@@ -37,23 +37,17 @@ export const findAll = async (req, res) => {
     const userId = req.user.userId;
     const role = req.user.userRole;
 
-    if (role == 'admin') {
-        await Task.findAll()
-            .then(data => {
-                res.json(data);
-            })
-            .catch(err => {
-                res.status(500).send({
-                    message:
-                        err.message ||
-                        'Some error occurred while retrieving tasks.',
-                });
+    await Task.findAll({ where: { userId: userId } })
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message ||
+                    'Some error occurred while retrieving tasks.',
             });
-    } else {
-        res.status(401).send({
-            message: "Ops! You don't have rights to access this resouce.",
         });
-    }
 };
 
 export const findById = async (req, res) => {

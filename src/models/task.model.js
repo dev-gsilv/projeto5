@@ -25,6 +25,7 @@ export default (sequelize, DataTypes) => {
             dueDate: {
                 type: DataTypes.DATE,
                 allowNull: true,
+                defaultValue: getTomorrowDate(),
             },
         },
         {
@@ -34,3 +35,9 @@ export default (sequelize, DataTypes) => {
     );
     return Task;
 };
+
+function getTomorrowDate() {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow;
+}
