@@ -30,7 +30,7 @@ RF13	O atributo title será obrigatório ao cadastrar uma tarefa. Id será gerad
 RF14	Quando um usuário for removido do banco de dados, todas as tarefas relacionadas a ele também deverão ser removidas.
 RF15	Deverá ser implementada uma rota 'healthcheck'.
 RF16	As rotas '/login' e '/register' poderão ser acessadas sem autenticação.
-RF17	As rotas '/logout', '/users' '/users/all', '/tasks', '/tasks/:id', '/tasks/all' deverão exigir autenticação para acesso.
+RF17	As rotas '/users' '/users/all', '/tasks', '/tasks/:id', '/tasks/all' deverão exigir autenticação para acesso.
 RF18	O login de usuários será por credenciais de acesso (email, password) via Basic Auth.
 RF19	A autorização de acesso para rotas restritas será realizada por meio de Bearer Token JWT.
 RF20	Cada token gerado deverá conter em seu payload o user ID e o user role, além de ter tempo de expiração de 1 hora.
